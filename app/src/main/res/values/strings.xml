@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Mobile POS</string>
+    <string name="text_result">Searching For Barcode</string>
+</resources>
