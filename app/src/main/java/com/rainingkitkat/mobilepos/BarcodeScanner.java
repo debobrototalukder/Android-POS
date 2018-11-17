@@ -21,18 +21,22 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 public class BarcodeScanner extends AppCompatActivity {
-
     private SurfaceView barcodeSurfaceView;
     private TextView textResult;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private final int RequestCameraPermission = 1001;
 
+    public static boolean isDialogOpen = false;
+    private String barcode = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
+
+        final dbHandler db = new dbHandler(this);
 
         barcodeSurfaceView = findViewById(R.id.barcodeCamera);
         textResult = findViewById(R.id.textResult);
@@ -85,9 +89,14 @@ public class BarcodeScanner extends AppCompatActivity {
                     textResult.post(new Runnable() {
                         @Override
                         public void run() {
-                            Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(300);
-                            textResult.setText(code.valueAt(0).displayValue);
+                            if (isDialogOpen == false){
+                                Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(300);
+                                textResult.setText(code.valueAt(0).displayValue);
+                                barcode = db.getBarcode(textResult.getText().toString());
+                                textResult.setText(barcode);
+                                openDialog();
+                            }
                         }
                     });
                 }
@@ -118,5 +127,11 @@ public class BarcodeScanner extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void openDialog(){
+        dialogBox dialogBox = new dialogBox();
+        dialogBox.show(getSupportFragmentManager(),"dialogBox");
+        isDialogOpen = true;
     }
 }

@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 public class dbHandler extends SQLiteOpenHelper {
-
+    BarcodeScanner barcodeScanner = new BarcodeScanner();
 
     private final static String DATABASE_NAME = "pos.db";
     private final static String TABLE_NAME = "groceryitems";
@@ -18,6 +18,8 @@ public class dbHandler extends SQLiteOpenHelper {
     private final static String COL2 = "BarcodeNumber";
     private final static String COL3 = "ProductName";
     private final static String COL4 = "Price";
+
+    public static String barcodeString = "";
 
     public dbHandler(@Nullable Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -41,8 +43,8 @@ public class dbHandler extends SQLiteOpenHelper {
 
         //Adds Data into the tables
         addData(sqLiteDatabase, "036000291452", "Lay's Tomato Ketchup Chips - 40gm", 2.25f);
-        addData(sqLiteDatabase, "0705632085943", "Coca-Cola Can Soft Drinks - 150ml", 2.5f);
-        addData(sqLiteDatabase, "0701197952225", "Arwa Water - 1.5L", 1);
+        addData(sqLiteDatabase, "705632085943", "Coca-Cola Can Soft Drinks - 150ml", 2.5f);
+        addData(sqLiteDatabase, "701197952225", "Arwa Water - 1.5L", 1);
         addData(sqLiteDatabase, "9501101530003", "NESCAFE GOLD Double Choc MOCHA Instant Foaming Coffee with Chocolate Mix - 23gm x 8 Sticks", 18.5f);
         addData(sqLiteDatabase, "9771234567003", "White Eggs", 18);
         addData(sqLiteDatabase, "8901072002478", "Sliced Milk Bread", 5);
@@ -58,7 +60,7 @@ public class dbHandler extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void addData(SQLiteDatabase db, String barcode, String productName, float price){
+    private void addData(SQLiteDatabase db, String barcode, String productName, float price){
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL2, barcode);
@@ -74,7 +76,7 @@ public class dbHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void displayAllData(SQLiteDatabase sqLiteDatabase){
+    private void displayAllData(SQLiteDatabase sqLiteDatabase){
         Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
         if(res.getCount() == 0){
@@ -90,6 +92,33 @@ public class dbHandler extends SQLiteOpenHelper {
             }
 
             Log.i("dbHandler", String.valueOf(buffer));
+        }
+
+        res.close();
+    }
+
+    public String getBarcode(String barcode){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String text = "";
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE BarcodeNumber=" + "'" + barcode + "'", null);
+
+        Log.d("dbHandler", "Query Complete");
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Database Is Empty");
+            res.close();
+            return "Not A Valid Barcode";
+        } else {
+            Log.d("dbHandler", "Inside Else");
+
+            while (res.moveToNext()){
+                text = res.getString(2);
+            }
+
+            res.close();
+
+            return text;
         }
     }
 }
