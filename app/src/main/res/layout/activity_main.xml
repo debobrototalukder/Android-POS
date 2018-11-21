@@ -15,4 +15,44 @@
         android:layout_marginBottom="26dp"
         android:onClick="toBarcodeScanner"
         android:text="Barcode Scanner" />
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="223dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Username" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Password" />
+
+    <Button
+        android:id="@+id/login_bttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-3dp"
+        android:text="Login" />
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login_bttn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="123dp"
+        android:onClick="SignUp"
+        android:text="Sign Up" />
 </RelativeLayout>

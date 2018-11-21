@@ -14,10 +14,19 @@ public class dbHandler extends SQLiteOpenHelper {
 
     private final static String DATABASE_NAME = "pos.db";
     private final static String TABLE_NAME = "groceryitems";
+    private final static String USER_TABLE = "Users";
     private final static String COL1 = "ID";
     private final static String COL2 = "BarcodeNumber";
     private final static String COL3 = "ProductName";
     private final static String COL4 = "Price";
+
+    private final static String USER_COL1 = "UserID";
+    private final static String USER_COL2 = "FullName";
+    private final static String USER_COL3 = "UserName";
+    private final static String USER_COL4 = "Password";
+    private final static String USER_COL5 = "Balance";
+
+
 
     public dbHandler(@Nullable Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -35,9 +44,17 @@ public class dbHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL2 + " TEXT, " + COL3 + " TEXT, " + COL4 + " REAL)";
+
+        String createUserTable = "CREATE TABLE " + USER_TABLE + " (UserID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                USER_COL2 + " TEXT, " + USER_COL3 + " TEXT, " + USER_COL4 + " TEXT, " + USER_COL5  + " REAL)";
+
         sqLiteDatabase.execSQL(createTable);
+        sqLiteDatabase.execSQL(createUserTable);
+
 
         Log.d("dbHandler", "Successfully Created Table");
+        Log.d("dbHandler", "Successfully db Created UserTable");
+
 
         //Adds Data into the tables
         addData(sqLiteDatabase, "036000291452", "Lay's Tomato Ketchup Chips - 40gm", 2.25f);
@@ -69,6 +86,27 @@ public class dbHandler extends SQLiteOpenHelper {
 
         if(result == -1){
             Log.e("dbHandler", "Failed to insert values into database");
+        } else {
+            Log.i("dbHandler", "Values successfully added");
+        }
+    }
+
+    public void SignUpaddData(String fullName, String username, String password){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(USER_COL2, fullName);
+        contentValues.put(USER_COL3, username);
+        contentValues.put(USER_COL3, password);
+        contentValues.put(USER_COL4, 100);
+
+
+        Log.d("DB", USER_COL2);
+
+        long result = db.insert(USER_TABLE, null, contentValues);
+
+        if(result == -1){
+            Log.e("dbHandler", "Failed to insert values into user database");
         } else {
             Log.i("dbHandler", "Values successfully added");
         }
