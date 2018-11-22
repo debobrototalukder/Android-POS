@@ -13,13 +13,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Button barcodeBtn;
-
+    private Button signup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         barcodeBtn = findViewById(R.id.barcodeBtn);
+        signup = findViewById(R.id.sign_up);
 
         //db = new databaseHandler(this);
         dbHandler db = new dbHandler(this);
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toBarcodeScanner(View view){
         Intent intent = new Intent(getApplicationContext(), BarcodeScanner.class);
+        startActivity(intent);
+    }
+
+    public void SignUp(View view){
+        Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
     }
 }
