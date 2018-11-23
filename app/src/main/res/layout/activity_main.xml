@@ -38,21 +38,33 @@
         android:hint="Password" />
 
     <Button
-        android:id="@+id/login_bttn"
+        android:id="@+id/login_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-3dp"
+        android:layout_marginTop="31dp"
+        android:onClick="toHome"
         android:text="Login" />
 
     <Button
         android:id="@+id/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/login_bttn"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="123dp"
+        android:layout_below="@+id/login_btn"
+        android:layout_alignStart="@+id/login_btn"
+        android:layout_marginTop="3dp"
         android:onClick="SignUp"
         android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/invalid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="-1dp"
+        android:text="Username Or Password Incorrect"
+        android:textColor="@color/colorRed"/>
 </RelativeLayout>

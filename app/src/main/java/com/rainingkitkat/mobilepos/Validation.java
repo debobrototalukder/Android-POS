@@ -36,4 +36,24 @@ public class Validation {
             return false;
         }
     }
+
+    public boolean isLoginFieldEmpty(String username, String password){
+        if(username.matches("")){
+            isUsernameEmpty = true;
+        } else {
+            isUsernameEmpty = false;
+        }
+
+        if(password.matches("")){
+            isPasswordEmpty = true;
+        } else {
+            isPasswordEmpty = false;
+        }
+
+        if(isUsernameEmpty == true || isPasswordEmpty == true){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -180,6 +180,32 @@ public class dbHandler extends SQLiteOpenHelper {
         }
     }
 
+    //Gets Price From The Database
+    public String getPrice(String barcode){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String text = "";
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE BarcodeNumber=" + "'" + barcode + "'", null);
+
+        Log.d("dbHandler", "Query Complete");
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Not A Valid Barcode");
+            res.close();
+            return "Not A Valid Barcode";
+        } else {
+            Log.d("dbHandler", "Inside Else");
+
+            while (res.moveToNext()){
+                text = res.getString(3);
+            }
+
+            res.close();
+
+            return text;
+        }
+    }
+
     public Boolean checkUsername(String username){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
@@ -193,6 +219,22 @@ public class dbHandler extends SQLiteOpenHelper {
             Log.d("dbHandler", "Username Exists");
             res.close();
             return false;
+        }
+    }
+
+    public boolean verifyCredentials(String username, String password){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE Username = '" + username + "' AND Password = '" + password + "'", null);
+
+        if (res.getCount() == 0){
+            Log.d("dbHandler", "User Doesn't Exist");
+            res.close();
+            return false;
+        } else {
+            Log.d("dbHandler", "Username Exists");
+            res.close();
+            return true;
         }
     }
 }

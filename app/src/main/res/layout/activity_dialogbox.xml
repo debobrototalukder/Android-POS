@@ -4,76 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/rLayout"
-        android:layout_width="183dp"
-        android:layout_height="56dp"
+    <TextView
+        android:id="@+id/ItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/addToCartBtn"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="35dp">
-
-        <TextView
-            android:id="@+id/ItemName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="5dp"
-            android:text="TextView" />
-    </RelativeLayout>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="9dp"
+        android:text="TextView" />
 
 
     <Button
         android:id="@+id/showCartBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/rLayout"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="184dp"
         android:text="Show Cart" />
 
     <Button
         android:id="@+id/continueShoppingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/rLayout"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="230dp"
         android:text="Continue Shopping" />
-
-    <EditText
-        android:id="@+id/amountText"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="29dp"
-        android:ems="10"
-        android:inputType="number" />
 
     <Button
         android:id="@+id/addToCartBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/rLayout"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="108dp"
+        android:layout_above="@+id/showCartBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginBottom="-187dp"
         android:text="Add To Cart" />
-
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="1dp"
-        android:layout_toStartOf="@+id/amountText"
-        android:background="@null"
-        app:srcCompat="@drawable/baseline_add_circle_outline_black_18" />
 
 </RelativeLayout>

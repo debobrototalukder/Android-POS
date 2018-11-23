@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class dialogBox extends AppCompatDialogFragment {
@@ -24,7 +26,8 @@ public class dialogBox extends AppCompatDialogFragment {
         builder.setView(view);
 
         groceryName = view.findViewById(R.id.ItemName);
-        groceryName.setText(barcodeScanner.sendProductName);
+        groceryName.setText("Product Name : " + barcodeScanner.sendProductName
+        + "\n\nProduct Price : " + barcodeScanner.sendProductPrice);
 
 
         return builder.create();
@@ -36,5 +39,6 @@ public class dialogBox extends AppCompatDialogFragment {
         barcodeScanner.isDialogOpen = false;
     }
 
-    //ToDo Finish The Dialog. Add The Plus Minus Button.
+    //ToDo : The Buttons Should Do Stuff
+    //ToDo : Design It So It Fits The Screen
 }

@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -33,6 +34,7 @@ public class BarcodeScanner extends AppCompatActivity {
     public static boolean isDialogOpen = false;
     private String barcode = "";
     public static String sendProductName;
+    public static String sendProductPrice;
 
 
     @Override
@@ -98,9 +100,15 @@ public class BarcodeScanner extends AppCompatActivity {
                                 vibrator.vibrate(300);
                                 textResult.setText(code.valueAt(0).displayValue);
                                 sendProductName = db.getBarcode(textResult.getText().toString());
+                                sendProductPrice = db.getPrice(textResult.getText().toString());
                                 //dialogBox.setProductName(sendProductName);
                                 //textResult.setText(barcode);
-                                openDialog();
+                                if(sendProductName.matches("Not A Valid Barcode")){
+                                    Toast.makeText(BarcodeScanner.this, "Not A Valid Barcode", Toast.LENGTH_SHORT).show();
+                                    isDialogOpen = false;
+                                } else {
+                                    openDialog();
+                                }
                             }
                         }
                     });
@@ -138,4 +146,6 @@ public class BarcodeScanner extends AppCompatActivity {
         dialogBox.show(getSupportFragmentManager(),"dialogBox");
         isDialogOpen = true;
     }
+
+    //ToDO : Send Price
 }
