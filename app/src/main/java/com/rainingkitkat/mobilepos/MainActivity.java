@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     dbHandler db;
     Validation validation;
 
-    private Button barcodeBtn;
     private Button signup;
     private EditText username;
     private EditText password;
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        barcodeBtn = findViewById(R.id.barcodeBtn);
         signup = findViewById(R.id.sign_up);
         username = findViewById(R.id.user_name);
         password = findViewById(R.id.password);
@@ -44,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
         invalid.setVisibility(View.INVISIBLE);
     }
 
-    public void toBarcodeScanner(View view){
-        Intent intent = new Intent(getApplicationContext(), BarcodeScanner.class);
-        startActivity(intent);
-    }
+
 
     public void SignUp(View view){
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
@@ -72,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    //TODO : Make Login
+    //ToDo : Make The Home Page. Make It Better If You Can
     //TODO : Make The Cart
+    //ToDo : Make The Firebase Database
+    //ToDo : Change The Color Of The Buttons
 }

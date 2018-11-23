@@ -31,7 +31,8 @@
             android:value="barcode" />
 
         <activity android:name=".SignUp" />
-        <activity android:name=".Home"></activity>
+        <activity android:name=".Home" />
+        <activity android:name=".Cart"></activity>
     </application>
 
 </manifest>

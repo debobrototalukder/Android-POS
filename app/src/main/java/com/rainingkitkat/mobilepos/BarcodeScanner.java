@@ -146,6 +146,4 @@ public class BarcodeScanner extends AppCompatActivity {
         dialogBox.show(getSupportFragmentManager(),"dialogBox");
         isDialogOpen = true;
     }
-
-    //ToDO : Send Price
 }

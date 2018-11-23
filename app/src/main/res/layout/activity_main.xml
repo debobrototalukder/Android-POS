@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/barcodeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:onClick="toBarcodeScanner"
-        android:text="Barcode Scanner" />
-
     <EditText
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
