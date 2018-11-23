@@ -35,4 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
     }
+
+    //TODO : Make Login
+    //TODO : Make The Cart
 }

@@ -21,6 +21,9 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 public class BarcodeScanner extends AppCompatActivity {
+    dbHandler db;
+    dialogBox dialogBox;
+
     private SurfaceView barcodeSurfaceView;
     private TextView textResult;
     private BarcodeDetector barcodeDetector;
@@ -29,6 +32,7 @@ public class BarcodeScanner extends AppCompatActivity {
 
     public static boolean isDialogOpen = false;
     private String barcode = "";
+    public static String sendProductName;
 
 
     @Override
@@ -36,7 +40,8 @@ public class BarcodeScanner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
 
-        final dbHandler db = new dbHandler(this);
+        db = new dbHandler(this);
+        dialogBox = new dialogBox();
 
         barcodeSurfaceView = findViewById(R.id.barcodeCamera);
         textResult = findViewById(R.id.textResult);
@@ -47,7 +52,6 @@ public class BarcodeScanner extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
                     // here to request the missing permissions, and then overriding
                     //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -93,8 +97,9 @@ public class BarcodeScanner extends AppCompatActivity {
                                 Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(300);
                                 textResult.setText(code.valueAt(0).displayValue);
-                                barcode = db.getBarcode(textResult.getText().toString());
-                                textResult.setText(barcode);
+                                sendProductName = db.getBarcode(textResult.getText().toString());
+                                //dialogBox.setProductName(sendProductName);
+                                //textResult.setText(barcode);
                                 openDialog();
                             }
                         }
@@ -110,7 +115,6 @@ public class BarcodeScanner extends AppCompatActivity {
             case RequestCameraPermission: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
                         //   public void onRequestPermissionsResult(int requestCode, String[] permissions,

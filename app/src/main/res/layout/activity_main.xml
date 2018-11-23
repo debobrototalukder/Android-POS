@@ -34,7 +34,7 @@
         android:layout_below="@+id/user_name"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:hint="Password" />
 
     <Button

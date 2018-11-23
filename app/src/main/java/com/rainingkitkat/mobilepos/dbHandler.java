@@ -24,7 +24,7 @@ public class dbHandler extends SQLiteOpenHelper {
 
     private final static String USER_COL1 = "UserID";
     private final static String USER_COL2 = "FullName";
-    private final static String USER_COL3 = "UserName";
+    private final static String USER_COL3 = "Username";
     private final static String USER_COL4 = "Password";
     private final static String USER_COL5 = "Balance";
 
@@ -48,7 +48,7 @@ public class dbHandler extends SQLiteOpenHelper {
                 COL2 + " TEXT, " + COL3 + " TEXT, " + COL4 + " REAL)";
 
         String createUserTable = "CREATE TABLE " + USER_TABLE + " (UserID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                USER_COL2 + " TEXT, " + USER_COL3 + " TEXT, " + USER_COL4 + " TEXT, " + USER_COL5  + " REAL)";
+                USER_COL2 + " TEXT, " + USER_COL3 + " TEXT, " + USER_COL4 + " TEXT, " + USER_COL5  + " REAL, CONSTRAINT name_unique UNIQUE (Username))";
 
         sqLiteDatabase.execSQL(createTable);
         sqLiteDatabase.execSQL(createUserTable);
@@ -93,17 +93,16 @@ public class dbHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void SignUpaddData(String fullName, String username, String password){
+    public void SignUpAddData(String fullName, String username, String password){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
+        username = username.toLowerCase();
+
         contentValues.put(USER_COL2, fullName);
         contentValues.put(USER_COL3, username);
-        contentValues.put(USER_COL3, password);
-        contentValues.put(USER_COL4, 100);
-
-
-        Log.d("DB", USER_COL2);
+        contentValues.put(USER_COL4, password);
+        contentValues.put(USER_COL5, 100);
 
         long result = db.insert(USER_TABLE, null, contentValues);
 
@@ -133,8 +132,29 @@ public class dbHandler extends SQLiteOpenHelper {
         }
 
         res.close();
+
+        Cursor res1 = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE, null);
+
+        if(res1.getCount() == 0){
+            Log.d("dbHandler", "Database Is Empty");
+        } else {
+            StringBuffer buffer = new StringBuffer();
+
+            while (res1.moveToNext()){
+                buffer.append("ID : " + res1.getString(0) + "\n");
+                buffer.append("Full Name : " + res1.getString(1) + "\n");
+                buffer.append("Username : " + res1.getString(2) + "\n");
+                buffer.append("Password : " + res1.getString(3) + "\n");
+                buffer.append("Balance : " + res1.getString(4) + "\n\n");
+            }
+
+            Log.i("dbHandler", String.valueOf(buffer));
+        }
+
+        res1.close();
     }
 
+    //Gets The Product Name When Barcode Is Scanned
     public String getBarcode(String barcode){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         String text = "";
@@ -144,7 +164,7 @@ public class dbHandler extends SQLiteOpenHelper {
         Log.d("dbHandler", "Query Complete");
 
         if(res.getCount() == 0){
-            Log.d("dbHandler", "Database Is Empty");
+            Log.d("dbHandler", "Not A Valid Barcode");
             res.close();
             return "Not A Valid Barcode";
         } else {
@@ -157,6 +177,22 @@ public class dbHandler extends SQLiteOpenHelper {
             res.close();
 
             return text;
+        }
+    }
+
+    public Boolean checkUsername(String username){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE Username =" + "'" + username + "'", null);
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Username Doesn't Exist");
+            res.close();
+            return true;
+        } else {
+            Log.d("dbHandler", "Username Exists");
+            res.close();
+            return false;
         }
     }
 }

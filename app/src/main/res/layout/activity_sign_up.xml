@@ -6,106 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".SignUp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="308dp"
-        android:layout_height="69dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="12dp"
-        android:text="Sign Up"
-        android:textSize="50sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="4dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="168dp"
-        android:text="Full Name"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="53dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="330dp"
-        android:text="Password"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="53dp" />
+            <EditText
+                android:id="@+id/SignUp_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="358dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:text=""
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="86dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="248dp"
-        android:text="Username"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="53dp" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="248dp"
+                android:text="Username"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="53dp" />
 
-    <EditText
-        android:id="@+id/SignUp_fullname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="196dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="86dp" />
+            <EditText
+                android:id="@+id/SignUp_fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="196dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="86dp" />
 
-    <EditText
-        android:id="@+id/SignUp_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="278dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="86dp" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="330dp"
+                android:text="Password"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="53dp" />
 
-    <EditText
-        android:id="@+id/SignUp_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="358dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="86dp" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="168dp"
+                android:text="Full Name"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="53dp" />
 
-    <Button
-        android:id="@+id/SignUp_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="67dp"
-        android:text="Sign Up" />
+            <EditText
+                android:id="@+id/SignUp_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="278dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text=""
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="86dp" />
+
+            <Button
+                android:id="@+id/SignUp_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/SignUp_password"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="90dp"
+                android:text="Sign Up" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="308dp"
+                android:layout_height="69dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                android:text="Sign Up"
+                android:textSize="50sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="4dp" />
+
+            <TextView
+                android:id="@+id/unique_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="252dp"
+                android:text="Username Is Already Taken"
+                android:textColor="@color/colorRed"/>
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
