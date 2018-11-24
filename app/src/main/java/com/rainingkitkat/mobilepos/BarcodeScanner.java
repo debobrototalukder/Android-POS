@@ -107,6 +107,7 @@ public class BarcodeScanner extends AppCompatActivity {
                                     Toast.makeText(BarcodeScanner.this, "Not A Valid Barcode", Toast.LENGTH_SHORT).show();
                                     isDialogOpen = false;
                                 } else {
+                                    db.addItemToCart(sendProductName, sendProductPrice);
                                     openDialog();
                                 }
                             }

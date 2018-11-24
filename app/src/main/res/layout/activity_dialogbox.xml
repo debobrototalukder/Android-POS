@@ -8,7 +8,7 @@
         android:id="@+id/ItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/addToCartBtn"
+        android:layout_alignStart="@+id/showCartBtn"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="9dp"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="31dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="136dp"
         android:text="Show Cart" />
 
     <Button
@@ -30,17 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="31dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="182dp"
         android:text="Continue Shopping" />
-
-    <Button
-        android:id="@+id/addToCartBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/showCartBtn"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginBottom="-187dp"
-        android:text="Add To Cart" />
 
 </RelativeLayout>

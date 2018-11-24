@@ -1,6 +1,7 @@
 package com.rainingkitkat.mobilepos;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     dbHandler db;
     Validation validation;
+    Utils utils;
 
     private Button signup;
     private EditText username;
@@ -38,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
         //db = new databaseHandler(this);
         db = new dbHandler(this);
         validation = new Validation();
+        utils = new Utils();
 
         invalid.setVisibility(View.INVISIBLE);
+
+        if(utils.getLoggedIn(this)){
+            Intent intent = new Intent(getApplicationContext(), Home.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -61,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             if(verifyUser == true){
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
+                utils.isLoggedIn(this);
+                utils.setUsername(this, username.getText().toString());
             } else {
                 invalid.setVisibility(View.VISIBLE);
                 Toast.makeText(this, "Invalid Username Or Password", Toast.LENGTH_SHORT).show();
@@ -71,4 +81,6 @@ public class MainActivity extends AppCompatActivity {
     //TODO : Make The Cart
     //ToDo : Make The Firebase Database
     //ToDo : Change The Color Of The Buttons
+    //ToDo : Make Admin Account
+    //ToDo : Add Balance
 }

@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 
 public class Home extends AppCompatActivity {
+    Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        utils = new Utils();
     }
 
     public void toBarcodeScanner(View view){
@@ -25,5 +28,6 @@ public class Home extends AppCompatActivity {
 
     public void signOut(View view){
         finish();
+        Utils.isNotLoggedIn(this);
     }
 }

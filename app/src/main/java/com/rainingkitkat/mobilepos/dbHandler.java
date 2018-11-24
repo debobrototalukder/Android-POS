@@ -19,6 +19,7 @@ public class dbHandler extends SQLiteOpenHelper {
     private final static String COL2 = "BarcodeNumber";
     private final static String COL3 = "ProductName";
     private final static String COL4 = "Price";
+    private final static String COL5 = "Stock";
 
     public static String barcodeString = "";
 
@@ -27,6 +28,9 @@ public class dbHandler extends SQLiteOpenHelper {
     private final static String USER_COL3 = "Username";
     private final static String USER_COL4 = "Password";
     private final static String USER_COL5 = "Balance";
+
+    private final static String CART_COL1 = "Product_Name";
+    private final static String CART_COL2 = "Product_Price";
 
 
 
@@ -45,18 +49,23 @@ public class dbHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL2 + " TEXT, " + COL3 + " TEXT, " + COL4 + " REAL)";
+                COL2 + " TEXT, " + COL3 + " TEXT, " + COL4 + " REAL, " + COL5 + " INTEGER)";
 
         String createUserTable = "CREATE TABLE " + USER_TABLE + " (UserID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 USER_COL2 + " TEXT, " + USER_COL3 + " TEXT, " + USER_COL4 + " TEXT, " + USER_COL5  + " REAL, CONSTRAINT name_unique UNIQUE (Username))";
 
+        String createCart = "CREATE TABLE Cart (Product_Name TEXT, Product_Price TEXT)";
+
         sqLiteDatabase.execSQL(createTable);
         sqLiteDatabase.execSQL(createUserTable);
+        sqLiteDatabase.execSQL(createCart);
 
 
         Log.d("dbHandler", "Successfully Created Table");
         Log.d("dbHandler", "Successfully db Created UserTable");
 
+        //Admin Account
+        SignUpAddData("ME", "KAT", "pass");
 
         //Adds Data into the tables
         addData(sqLiteDatabase, "036000291452", "Lay's Tomato Ketchup Chips - 40gm", 2.25f);
@@ -83,6 +92,7 @@ public class dbHandler extends SQLiteOpenHelper {
         contentValues.put(COL2, barcode);
         contentValues.put(COL3, productName);
         contentValues.put(COL4, price);
+        contentValues.put(COL5, 100);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
@@ -235,6 +245,50 @@ public class dbHandler extends SQLiteOpenHelper {
             Log.d("dbHandler", "Username Exists");
             res.close();
             return true;
+        }
+    }
+
+    //Adds Product To Cart
+    public void addItemToCart(String productName, String price){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CART_COL1, productName);
+        contentValues.put(CART_COL2, price);
+
+        long result = sqLiteDatabase.insert("Cart", null, contentValues);
+
+        if(result == -1){
+            Log.e("dbHandler", "Failed to insert values into user database");
+        } else {
+            Log.i("dbHandler", "Values successfully added");
+        }
+    }
+
+    public String getUserBalance(String username){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        String text = "";
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE Username=" + "'" + username + "'", null);
+
+        Log.d("dbHandler", "Query Complete");
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Not A Valid Username");
+            res.close();
+            return "Not A Valid Username";
+        } else {
+            Log.d("dbHandler", "Inside Else");
+
+            while (res.moveToNext()){
+                text = res.getString(4);
+            }
+
+            res.close();
+
+            return text;
         }
     }
 }
