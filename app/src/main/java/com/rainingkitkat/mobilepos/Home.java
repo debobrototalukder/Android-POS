@@ -30,4 +30,6 @@ public class Home extends AppCompatActivity {
         finish();
         Utils.isNotLoggedIn(this);
     }
+
+    //ToDO : Disable back button
 }

@@ -83,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
     //ToDo : Change The Color Of The Buttons
     //ToDo : Make Admin Account
     //ToDo : Add Balance
+    //ToDo : Lock Orientation
 }

@@ -9,8 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class dbHandler extends SQLiteOpenHelper {
     BarcodeScanner barcodeScanner = new BarcodeScanner();
+    Utils utils = new Utils();
 
     private final static String DATABASE_NAME = "pos.db";
     private final static String TABLE_NAME = "groceryitems";
@@ -31,6 +35,9 @@ public class dbHandler extends SQLiteOpenHelper {
 
     private final static String CART_COL1 = "Product_Name";
     private final static String CART_COL2 = "Product_Price";
+    private final static String CART_COL3 = "Product_Quantity";
+    private final static String CART_COL4 = "Product_ID";
+    private final static String CART_COL5 = "Product_username";
 
 
 
@@ -54,7 +61,7 @@ public class dbHandler extends SQLiteOpenHelper {
         String createUserTable = "CREATE TABLE " + USER_TABLE + " (UserID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 USER_COL2 + " TEXT, " + USER_COL3 + " TEXT, " + USER_COL4 + " TEXT, " + USER_COL5  + " REAL, CONSTRAINT name_unique UNIQUE (Username))";
 
-        String createCart = "CREATE TABLE Cart (Product_Name TEXT, Product_Price TEXT)";
+        String createCart = "CREATE TABLE Cart (Product_ID INTEGER PRIMARY KEY AUTOINCREMENT, Product_Name TEXT, Product_Price TEXT, Product_Quantity INTEGER, Product_username TEXT)";
 
         sqLiteDatabase.execSQL(createTable);
         sqLiteDatabase.execSQL(createUserTable);
@@ -65,7 +72,9 @@ public class dbHandler extends SQLiteOpenHelper {
         Log.d("dbHandler", "Successfully db Created UserTable");
 
         //Admin Account
-        SignUpAddData("ME", "KAT", "pass");
+        Log.d("dbHandler", "Before Admin Account");
+        AdminSignUpAddData(sqLiteDatabase,"ME", "KAT", "pass");
+        Log.d("dbHandler", "Admin Account Created");
 
         //Adds Data into the tables
         addData(sqLiteDatabase, "036000291452", "Lay's Tomato Ketchup Chips - 40gm", 2.25f);
@@ -105,6 +114,25 @@ public class dbHandler extends SQLiteOpenHelper {
 
     public void SignUpAddData(String fullName, String username, String password){
         SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        username = username.toLowerCase();
+
+        contentValues.put(USER_COL2, fullName);
+        contentValues.put(USER_COL3, username);
+        contentValues.put(USER_COL4, password);
+        contentValues.put(USER_COL5, 100);
+
+        long result = db.insert(USER_TABLE, null, contentValues);
+
+        if(result == -1){
+            Log.e("dbHandler", "Failed to insert values into user database");
+        } else {
+            Log.i("dbHandler", "Values successfully added");
+        }
+    }
+
+    public void AdminSignUpAddData(SQLiteDatabase db, String fullName, String username, String password){
         ContentValues contentValues = new ContentValues();
 
         username = username.toLowerCase();
@@ -249,13 +277,15 @@ public class dbHandler extends SQLiteOpenHelper {
     }
 
     //Adds Product To Cart
-    public void addItemToCart(String productName, String price){
+    public void addItemToCart(String productName, String price, String username){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(CART_COL1, productName);
         contentValues.put(CART_COL2, price);
+        contentValues.put(CART_COL3, 1);
+        contentValues.put(CART_COL5, username);
 
         long result = sqLiteDatabase.insert("Cart", null, contentValues);
 
@@ -291,4 +321,117 @@ public class dbHandler extends SQLiteOpenHelper {
             return text;
         }
     }
+
+    public List<String> getProductName(){
+        List<String> productName = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM CART", null);
+
+        if (res.getCount() == 0){
+            Log.d("dbHandler", "Cart Table Is Empty");
+        } else {
+            Log.d("dbHandler", "Fount Items In Cart");
+            while (res.moveToNext()){
+                productName.add(res.getString(1));
+            }
+        }
+        return productName;
+    }
+
+    public List<String> getProductPrice(){
+        List<String> productName = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM CART", null);
+
+        if (res.getCount() == 0){
+            Log.d("dbHandler", "Cart Table Is Empty");
+        } else {
+            Log.d("dbHandler", "Fount Items In Cart");
+            while (res.moveToNext()){
+                productName.add(res.getString(2));
+            }
+        }
+        return productName;
+    }
+
+    public List<String> getProductQuantity(){
+        List<String> productName = new ArrayList<>();
+
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM CART", null);
+
+        if (res.getCount() == 0){
+            Log.d("dbHandler", "Cart Table Is Empty");
+        } else {
+            Log.d("dbHandler", "Fount Items In Cart");
+            while (res.moveToNext()){
+                productName.add(res.getString(3));
+            }
+        }
+        return productName;
+    }
+
+    public void deleteItemFromCart(String username, String productName){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        sqLiteDatabase.delete("CART", "Product_username=? and Product_Name=?", new String[]{username, productName});
+    }
+
+    /*public void getItemUsername(){
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        String text = "";
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM CART WHERE Username=" + "'" + username + "'", null);
+
+        Log.d("dbHandler", "Query Complete");
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Not A Valid Username");
+            res.close();
+            return "Not A Valid Username";
+        } else {
+            Log.d("dbHandler", "Inside Else");
+
+            while (res.moveToNext()){
+                text = res.getString(4);
+            }
+
+            res.close();
+
+            return text;
+        }
+
+    }*/
+
+    /*public String getItemID(String ProductName, String username) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+
+        String text = "";
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM CART " + " WHERE Product_username=" + "'" + username + "' AND Product_Name = '" + ProductName + "'", null);
+
+        Log.d("dbHandler", "Query Complete");
+
+        if(res.getCount() == 0){
+            Log.d("dbHandler", "Not A Valid Username");
+            res.close();
+            return "Not A Valid Username";
+        } else {
+            Log.d("dbHandler", "Inside Else");
+
+            while (res.moveToNext()){
+                text = res.getString(4);
+            }
+
+            res.close();
+
+            return text;
+        }
+    }*/
 }

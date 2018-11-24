@@ -24,6 +24,7 @@ import java.io.IOException;
 public class BarcodeScanner extends AppCompatActivity {
     dbHandler db;
     dialogBox dialogBox;
+    Utils utils;
 
     private SurfaceView barcodeSurfaceView;
     private TextView textResult;
@@ -36,6 +37,8 @@ public class BarcodeScanner extends AppCompatActivity {
     public static String sendProductName;
     public static String sendProductPrice;
 
+    String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class BarcodeScanner extends AppCompatActivity {
 
         db = new dbHandler(this);
         dialogBox = new dialogBox();
+        utils = new Utils();
 
         barcodeSurfaceView = findViewById(R.id.barcodeCamera);
         textResult = findViewById(R.id.textResult);
@@ -107,7 +111,8 @@ public class BarcodeScanner extends AppCompatActivity {
                                     Toast.makeText(BarcodeScanner.this, "Not A Valid Barcode", Toast.LENGTH_SHORT).show();
                                     isDialogOpen = false;
                                 } else {
-                                    db.addItemToCart(sendProductName, sendProductPrice);
+                                    username = utils.getUsername(BarcodeScanner.this);
+                                    db.addItemToCart(sendProductName, sendProductPrice, username);
                                     openDialog();
                                 }
                             }
