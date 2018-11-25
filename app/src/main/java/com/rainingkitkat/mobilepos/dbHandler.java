@@ -46,8 +46,6 @@ public class dbHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        addItemToCart("Chocolate", "2", "kat");
-
         try {
             displayAllData(db);
         } catch (SQLException e){
@@ -404,9 +402,7 @@ public class dbHandler extends SQLiteOpenHelper {
                 amount = totalamount - amount;
             }
 
-            Log.d("dbHandler", "----------->" + amount);
-            Log.d("dbHandler", "----------->" + totalamount);
-            sqLiteDatabase.execSQL("UPDATE Users SET Balance = " + amount + " WHERE Username = '" + username +"'");
+            sqLiteDatabase.execSQL("UPDATE Users SET Balance = " + amount);
         }
     }
 

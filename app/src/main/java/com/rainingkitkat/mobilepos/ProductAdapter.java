@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Product product = productList.get(position);
         holder.productTitle.setText("Name : " + product.getName());
-        holder.productPrice.setText(product.getPrice());
+        holder.productPrice.setText("Price : " + product.getPrice());
         holder.productQuantity.setText(product.getQuantity());
 
         holder.deleteCard.setOnClickListener(new View.OnClickListener() {
@@ -71,19 +70,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             productPrice = itemView.findViewById(R.id.textViewPrice);
             productQuantity = itemView.findViewById(R.id.product_quantity);
             deleteCard = itemView.findViewById(R.id.close);
-
-
-            productQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    if(b){
-                        Toast.makeText(context, "Words", Toast.LENGTH_SHORT).show();
-                    }
-                    int quantity = Integer.parseInt(productQuantity.getText().toString());
-                    utils.setQuantity(context, quantity);
-                }
-            });
         }
-
     }
 }
