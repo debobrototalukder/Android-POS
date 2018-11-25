@@ -57,4 +57,14 @@
         android:layout_marginTop="-1dp"
         android:text="Username Or Password Incorrect"
         android:textColor="@color/colorRed"/>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="MobilePOS"
+        android:textSize="56sp" />
 </RelativeLayout>
