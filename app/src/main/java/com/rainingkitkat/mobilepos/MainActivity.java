@@ -1,6 +1,5 @@
 package com.rainingkitkat.mobilepos;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -28,14 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean isFieldEmpty;
     private boolean verifyUser;
 
-    public static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        context = getApplicationContext();
 
         signup = findViewById(R.id.sign_up);
         username = findViewById(R.id.user_name);
