@@ -1,5 +1,6 @@
 package com.rainingkitkat.mobilepos;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,12 +55,13 @@ public class Cart extends AppCompatActivity {
         // Adds All The Products To The View
         for (int i = 0; i < db.getProductName().size(); i++){
             productList.add(new Product(db.getProductName().get(i), db.getProductPrice().get(i), db.getProductQuantity().get(i)));
+            totalAmountDouble += Double.parseDouble(db.getProductPrice().get(i));
         }
 
         adapter = new ProductAdapter(this, productList);
         recyclerView.setAdapter(adapter);
 
-        //totalAmount.setText();
+        totalAmount.setText(totalAmountDouble + " Dhs");
 
     }
 
@@ -68,9 +70,6 @@ public class Cart extends AppCompatActivity {
     }
 
     public void confirmPurchase(View view){
-        //ToDo : This is supposed to take you to the home page
         finish();
     }
-
-    //ToDo : Do This Based On User ID
 }
