@@ -22,6 +22,7 @@ import java.util.List;
 public class Cart extends AppCompatActivity {
     dbHandler db;
     Utils utils;
+    MainActivity mainActivity;
 
     private String username;
     private String balance;
@@ -42,6 +43,7 @@ public class Cart extends AppCompatActivity {
 
         utils = new Utils();
         db = new dbHandler(this);
+        mainActivity = new MainActivity();
 
         balanceTV = findViewById(R.id.balance);
         totalAmount = findViewById(R.id.total_amount);
@@ -123,7 +125,8 @@ public class Cart extends AppCompatActivity {
                     productList.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(), productList.size());
-                    //dbHandler.deleteItemFromCart(utils.getUsername(context), holder.productTitle.getText().toString());
+                    String usernameTemp = utils.getUsername(mainActivity.context);
+                    dbHandler.deleteItemFromCart(usernameTemp, holder.productTitle.getText().toString());
                 }
             });
         }
