@@ -71,5 +71,6 @@ public class Cart extends AppCompatActivity {
 
     public void confirmPurchase(View view){
         finish();
+        db.deductBalance(totalAmountDouble, utils.getUsername(this));
     }
 }

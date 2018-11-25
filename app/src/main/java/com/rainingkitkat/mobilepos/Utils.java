@@ -35,4 +35,14 @@ public class Utils {
     public static String getUsername(Context context){
         return getPrefs(context).getString("username", "default_username");
     }
+
+    public static int getQuantity(Context context){
+        return getPrefs(context).getInt("quantity", 0);
+    }
+
+    public static void setQuantity(Context context, int quantity){
+        SharedPreferences.Editor editor = getPrefs(context).edit();
+        editor.putInt("quantity", quantity);
+        editor.commit();
+    }
 }
