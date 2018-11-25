@@ -382,6 +382,30 @@ public class dbHandler extends SQLiteOpenHelper {
         sqLiteDatabase.delete("CART", "Product_username=? and Product_Name=?", new String[]{username, productName});
     }
 
+    public void deductBalance(Double totalamount, String username){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE Username=" + "'" + username + "'", null);
+        Log.d("dbHandler", "after res");
+
+        double amount = 0;
+
+        if (res.getCount() == 0){
+            Log.d("dbHandler", "Cart Table Is Empty");
+        } else {
+            Log.d("dbHandler", "Fount Items In Cart");
+            while (res.moveToNext()){
+                 amount = res.getDouble(4);
+            }
+
+            if(totalamount > amount){
+                amount = totalamount - amount;
+            }
+
+            sqLiteDatabase.execSQL("UPDATE Users SET Balance = " + amount);
+        }
+    }
+
     /*public void getItemUsername(){
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
