@@ -9,9 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class dbHandler extends SQLiteOpenHelper {
     private final static String CART_COL4 = "Product_ID";
     private final static String CART_COL5 = "Product_username";
 
-    //DatabaseReference databaseReference;
+
 
     public dbHandler(@Nullable Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -112,9 +109,6 @@ public class dbHandler extends SQLiteOpenHelper {
             Log.e("dbHandler", "Failed to insert values into database");
         } else {
             Log.i("dbHandler", "Values successfully added");
-            /*databaseReference = FirebaseDatabase.getInstance().getReference("test");
-            String id = databaseReference.push().getKey();
-            databaseReference.child(id).setValue(contentValues);*/
         }
     }
 
@@ -385,32 +379,7 @@ public class dbHandler extends SQLiteOpenHelper {
     public void deleteItemFromCart(String username, String productName){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        sqLiteDatabase.delete("Cart", "Product_username=? and Product_Name=?", new String[]{username, productName});
-    }
-
-    public void deductBalance(double balance, String username){
-        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-
-        Cursor res = sqLiteDatabase.rawQuery("SELECT * FROM Users WHERE Username = '" + username + "'", null);
-
-        double oldBalance = 0;
-
-        if (res.getCount() == 0){
-            Log.d("dbHandler", "User Doesn't Exist");
-        } else {
-            Log.d("dbHandler", "Fount Items In Cart");
-            while (res.moveToNext()){
-                oldBalance = res.getDouble(4);
-            }
-        }
-
-        res.close();
-
-        if(oldBalance > balance){
-            balance = oldBalance - balance;
-        }
-
-        sqLiteDatabase.execSQL("UPDATE Users SET Balance = " + balance + " WHERE Username = '" + username +"'");
+        sqLiteDatabase.delete("CART", "Product_username=? and Product_Name=?", new String[]{username, productName});
     }
 
     /*public void getItemUsername(){

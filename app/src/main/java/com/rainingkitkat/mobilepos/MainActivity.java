@@ -78,7 +78,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     //ToDo : Make The Home Page. Make It Better If You Can
+    //TODO : Make The Cart
     //ToDo : Make The Firebase Database
+    //ToDo : Change The Color Of The Buttons
     //ToDo : Make Admin Account
     //ToDo : Add Balance
     //ToDo : Lock Orientation
